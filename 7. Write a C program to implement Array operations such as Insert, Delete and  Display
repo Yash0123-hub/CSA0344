@@ -1,0 +1,90 @@
+#include <stdio.h>
+
+#define MAX 100
+
+int array[MAX];
+int size = 0;
+
+void insert(int element, int position) {
+    if (position > size || position < 0) {
+        printf("Invalid position!\n");
+        return;
+    }
+    if (size == MAX) {
+        printf("Array is full!\n");
+        return;
+    }
+
+    for (int i = size; i > position; i--) {
+        array[i] = array[i - 1];
+    }
+    array[position] = element;
+    size++;
+    printf("Element inserted.\n");
+}
+
+// Function to delete an element from a given position
+void delete(int position) {
+    if (position >= size || position < 0) {
+        printf("Invalid position!\n");
+        return;
+    }
+
+    for (int i = position; i < size - 1; i++) {
+        array[i] = array[i + 1];
+    }
+    size--;
+    printf("Element deleted.\n");
+}
+
+// Function to display the array elements
+void display() {
+    if (size == 0) {
+        printf("Array is empty.\n");
+        return;
+    }
+    printf("Array elements: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, element, position;
+
+    while (1) {
+        printf("\n--- Array Operations ---\n");
+        printf("1. Insert\n2. Delete\n3. Display\n4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter element to insert: ");
+                scanf("%d", &element);
+                printf("Enter position (0 to %d): ", size);
+                scanf("%d", &position);
+                insert(element, position);
+                break;
+
+            case 2:
+                printf("Enter position to delete (0 to %d): ", size - 1);
+                scanf("%d", &position);
+                delete(position);
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
